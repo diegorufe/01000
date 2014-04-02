@@ -26,7 +26,14 @@ public class BallDemo
     public void bounce(int numBalls)
     {
         int ground = 400;   // position of the ground line
-        ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>();  
+        ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>();// ArrayList de bolas 
+
+        //Creacion de color al alzar 
+        int R = (int)(Math.random()*256);
+        int G = (int)(Math.random()*256);
+        int B= (int)(Math.random()*256);
+        Color color = new Color(R, G, B);
+
         myCanvas.setVisible(true);
 
         // draw the ground
@@ -34,7 +41,7 @@ public class BallDemo
 
         // crate and show the balls
         for(int i=0;i<numBalls;i++){
-            balls.add(new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas));
+            balls.add(new BouncingBall(50, 50, 16, color, ground, myCanvas));
             balls.get(i).draw();
         }
         // make them bounce
