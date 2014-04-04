@@ -55,4 +55,16 @@ public class BallDemo
         }
         myCanvas.setVisible(false);
     }
+    
+    /**
+     * Simulate a number determinaited of balls
+     * @param numBalls is the number of bolas.
+     */
+    public void  boxBounce(int numBalls){
+        myCanvas.setVisible(true);
+        Random aleatorio = new Random();
+        
+        // draw the ground
+        myCanvas.fillRectangle(350, 300, 200, 200);
+    }
 }
