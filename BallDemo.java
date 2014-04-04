@@ -63,8 +63,8 @@ public class BallDemo
     public void  boxBounce(int numBalls){
         myCanvas.setVisible(true);
         Random aleatorio = new Random();
-        
-        // draw the ground
+        ArrayList<BoxBall> balls = new ArrayList<BoxBall>();// ArrayList de bolas 
+        // draw the square
         myCanvas.fillRectangle(350, 300, 200, 200);
     }
 }
