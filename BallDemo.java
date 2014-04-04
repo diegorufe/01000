@@ -41,14 +41,16 @@ public class BallDemo
         }
         // make them bounce
         boolean finished =  false;
+        int contador = 0;
         while(!finished) {
+            contador = 0;
             myCanvas.wait(50);
-            for(int i =0;i<balls.size();i++){// small delay
-                balls.get(i).move();
-                   if(balls.get(i).getXPosition() >= 550) {
+            while(contador <balls.size() &&!finished ){// small delay
+                balls.get(contador).move();
+                   if(balls.get(contador).getXPosition() >= 550) {
                     finished = true;
-                    i = balls.size();
                 }
+                contador++;
             }
         }
         myCanvas.setVisible(false);
