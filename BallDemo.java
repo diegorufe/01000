@@ -65,6 +65,24 @@ public class BallDemo
         Random aleatorio = new Random();
         ArrayList<BoxBall> balls = new ArrayList<BoxBall>();// ArrayList de bolas 
         // draw the square
-        myCanvas.fillRectangle(350, 300, 200, 200);
+        myCanvas.fillRectangle(250, 300, 200, 200);
+        
+        // crate and show the balls
+        for(int i=0;i<numBalls;i++){
+            balls.add(new BoxBall(aleatorio.nextInt(100),aleatorio.nextInt(400), aleatorio.nextInt(80), new Color(aleatorio.nextInt(256), aleatorio.nextInt(256), aleatorio.nextInt(256)), 200, myCanvas,600,500,250,300,200));
+            balls.get(i).draw();
+        }
+         // make them bounce
+        boolean finished =  false;
+        int contador = 0;
+        while(!finished) {
+            contador = 0;
+            myCanvas.wait(20);
+            while(contador <balls.size()){// small delay
+                balls.get(contador).move();
+                contador++;
+            }
+        }
+        myCanvas.setVisible(false);
     }
 }

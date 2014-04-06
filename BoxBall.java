@@ -9,8 +9,7 @@ import java.awt.geom.*;
 public class BoxBall
 {
     public static final int SPEED = 1;
-    private static final int GRAVITY = 3;  // effect of gravity
-    private int ballDegradation = 2;
+    public static final int MIN_SIZE_PANEL = 0;
     private Ellipse2D.Double circle;
     private Color color;
     private int diameter;
@@ -18,8 +17,14 @@ public class BoxBall
     private int yPosition;
     private final int groundPosition;      // y position of ground
     private Canvas canvas;
-    
-   /**
+    private int xDir;
+    private int yDir;
+    private int panelWidth;
+    private int panelHeigth;
+    private int boxXPosition;
+    private int boxYPosition;
+    private int boxWeigthPosition;
+    /**
      * Constructor for objects of class BouncingBall
      *
      * @param xPos  the horizontal coordinate of the ball
@@ -30,7 +35,7 @@ public class BoxBall
      * @param drawingCanvas  the canvas to draw this ball on
      */
     public BoxBall(int xPos, int yPos, int ballDiameter, Color ballColor,
-                        int groundPos, Canvas drawingCanvas)
+    int groundPos, Canvas drawingCanvas,int panelWidth,int panelHeigth,int boxXPosition,int boxYPosition,int boxWeigthPosition)
     {
         xPosition = xPos;
         yPosition = yPos;
@@ -38,6 +43,13 @@ public class BoxBall
         diameter = ballDiameter;
         groundPosition = groundPos;
         canvas = drawingCanvas;
+        xDir = 2;
+        yDir = SPEED;
+        this.panelWidth= panelWidth;
+        this.panelHeigth = panelHeigth;
+        this.boxXPosition = boxXPosition;
+        this.boxYPosition = boxYPosition;
+        this.boxWeigthPosition = boxWeigthPosition;
     }
 
     /**
@@ -64,14 +76,23 @@ public class BoxBall
     {
         // remove from canvas at the current position
         erase();
-            
-        // compute new position
-        yPosition += SPEED;
-        xPosition +=2;
 
-        // check if it has hit the ground
-        if(yPosition >= (groundPosition - diameter) && SPEED > 0) {
-            yPosition = (int)(groundPosition - diameter);
+        // compute new position
+        yPosition += yDir;
+        xPosition +=xDir;
+
+        if(xPosition > panelWidth-diameter || xPosition < MIN_SIZE_PANEL){
+            xDir = -xDir;
+        }
+        if(yPosition > panelHeigth-diameter|| yPosition < MIN_SIZE_PANEL){
+            yDir = -yDir;
+        }
+        if(yPosition >= boxYPosition- diameter && xPosition >= (groundPosition - diameter+49) && xPosition < (boxXPosition+boxWeigthPosition)) {
+            xDir = -xDir;
+            if(yPosition == boxYPosition- diameter && xPosition > (groundPosition - diameter+49) && xPosition < (boxXPosition+boxWeigthPosition)){
+                 yDir = -yDir;
+                 xDir = xDir*(-1);
+            }
         }
 
         // draw again at new position
@@ -92,5 +113,12 @@ public class BoxBall
     public int getYPosition()
     {
         return yPosition;
+    }
+
+    /**
+     * return the diameter of this ball
+     */
+    public int getDiameter(){
+        return diameter;
     }
 }
